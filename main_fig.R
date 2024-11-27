@@ -87,7 +87,7 @@ ls("package:linkET") #
 #mget(ls("package:linkET"), inherits = TRUE) # 
 library(ggplot2)
 library(dplyr)
-#尾矿
+#
 protist_table %>% dplyr::select(contains(c(".T" ,".D", "Function")))  -> tmp #otu
 read.table("factor-select17.csv",header=TRUE, row.names=1, sep = ",") %>% filter(grepl("T|\\.D" , rownames(.))) %>% dplyr::select(-clay, -Cu)-> env
 env %>% merge(rich_fun, by.x = 0, by.y = 0) %>% merge(shan_fun,by.x = 'Row.names', by.y = 0) %>% dplyr::select(1:16,18) %>% 
@@ -149,7 +149,7 @@ mantel <- mutate(mantel,
                  )
 )
 mantel -> mine_mantel
-#绘图
+#
 qcorrplot(correlate(tmp_env, method = "spearman"), type = "lower", diag = FALSE) +
   geom_square(color="white") +
   geom_couple(aes(colour = pd, size = rd), data = mine_mantel, 
@@ -377,7 +377,7 @@ mantel <- mutate(mantel,
                  )
 )
 mantel -> Go_mantel
-#绘图
+#
 qcorrplot(correlate(tmp_env, method = "spearman"), type = "lower", diag = FALSE) +
   geom_square(color="white") +
   geom_couple(aes(colour = pd, size = rd), data = Go_mantel, 
@@ -664,7 +664,7 @@ for (i in cluster_id_group_1$X2){
 cluster_group_asv %>%  data.frame(asv=.) %>% mutate(gro='TP_high') -> tmp_tphight
 #
 da_18S_div_zscale %>% filter(rownames(.) %in%cluster_group_asv) %>% colMeans() %>% data.frame(mean_abun_scale=.) %>%  merge(sites_phyc2, by.x = 0, by.y = "sites") %>% 
-  filter(mean_abun_scale <2) %>% dplyr::select(-1, -Habtats) -> da_tp #filter(mean_abun_scale <4) %>%
+   dplyr::select(-1, -Habtats) -> da_tp #filter(mean_abun_scale <4) %>%
 #
 cor.test(da_tp$mean_abun_scale, da_tp$TP, method = "pearson")-> speaeman_re_tp
 ggplot(data = da_tp, aes(y = mean_abun_scale , x = scale(TP)))+
@@ -751,7 +751,7 @@ for (i in cluster_id_group_1$X2){
 cluster_group_asv %>%  data.frame(asv=.) %>% mutate(gro='ph_high') -> tmp_phhigh
 #
 da_18S_div_zscale %>% filter(rownames(.) %in%cluster_group_asv) %>% colMeans() %>% data.frame(mean_abun_scale=.) %>%  merge(sites_phyc2, by.x = 0, by.y = "sites") %>% 
-  filter(mean_abun_scale <2) %>%dplyr::select(-1, -Habtats) -> da_ph #filter(mean_abun_scale <4) %>%
+   %>%dplyr::select(-1, -Habtats) -> da_ph #filter(mean_abun_scale <4) %>%
 #
 cor.test(da_ph$mean_abun_scale, da_ph$ph, method = "spearman")-> speaeman_re_ph
 ggplot(data = da_ph, aes(y = mean_abun_scale , x = scale(ph)))+
@@ -771,7 +771,7 @@ for (i in cluster_id_group_1$X2){
 cluster_group_asv %>%  data.frame(asv=.) %>% mutate(gro='ph_low') -> tmp_phlow
 #
 da_18S_div_zscale %>% filter(rownames(.) %in%cluster_group_asv) %>% colMeans() %>% data.frame(mean_abun_scale=.) %>%  merge(sites_phyc2, by.x = 0, by.y = "sites") %>% 
-  filter(mean_abun_scale <0.5) %>% dplyr::select(-1, -Habtats) -> da_ph2 #filter(mean_abun_scale <4) %>%
+  dplyr::select(-1, -Habtats) -> da_ph2 #filter(mean_abun_scale <4) %>%
 #
 cor.test(da_ph2$mean_abun_scale, da_ph2$ph, method = "spearman")-> speaeman_re_ph2
 ggplot(data = da_ph2, aes(y = mean_abun_scale , x = ph))+
@@ -800,7 +800,7 @@ for (i in cluster_id_group_1$X2){
 cluster_group_asv %>%  data.frame(asv=.) %>% mutate(gro='EC_high') -> tmp_echight
 #
 da_18S_div_zscale %>% filter(rownames(.) %in%cluster_group_asv) %>% colMeans() %>% data.frame(mean_abun_scale=.) %>%  merge(sites_phyc2, by.x = 0, by.y = "sites") %>% 
-  filter(EC <10) %>% dplyr::select(-1, -Habtats) -> da_ec #filter(mean_abun_scale <4) %>%
+    dplyr::select(-1, -Habtats) -> da_ec #filter(mean_abun_scale <4) %>%
 #
 cor.test(da_ec$mean_abun_scale, da_ec$EC, method = "spearman")-> speaeman_re_ec
 ggplot(data = da_ec, aes(y = mean_abun_scale , x = scale(EC)))+
@@ -820,7 +820,7 @@ for (i in cluster_id_group_1$X2){
 cluster_group_asv %>%  data.frame(asv=.) %>% mutate(gro='EC_low') -> tmp_eclow
 #
 da_18S_div_zscale %>% filter(rownames(.) %in%cluster_group_asv) %>% colMeans() %>% data.frame(mean_abun_scale=.) %>%  merge(sites_phyc2, by.x = 0, by.y = "sites") %>% 
-  filter(EC <10) %>% dplyr::select(-1, -Habtats) -> da_ec2 #filter(mean_abun_scale <4) %>%
+  dplyr::select(-1, -Habtats) -> da_ec2 #filter(mean_abun_scale <4) %>%
 cluster_group_asv %>%  data.frame(asv=.) %>% mutate(gro='ec_low') -> tmp_eclow
 #
 cor.test(da_ec2$mean_abun_scale, da_ec2$EC, method = "spearman")-> speaeman_re_ec2
@@ -898,8 +898,7 @@ protist_Class_arrange_rela %>% group_by(Function) %>% summarise(across(where(is.
   filter(Function=="Consumer") %>% melt() -> tmp1
 protist_Class_arrange_rela %>% group_by(Function) %>% summarise(across(where(is.numeric), sum)) %>% dplyr::select(Function, contains('.Fa'))  %>%
   filter(Function=="Phototrophic") %>% melt() %>% merge(tmp1, by = "variable") %>% mutate(con_vs_pho_fa1= value.y/value.x) %>% merge(sites_phyc, by.x = 'variable', by.y = "sites") %>% 
-  dplyr::select( Long, Latitude,con_vs_pho_fa1 ) %>% group_by(Long, Latitude) %>% summarise(across(where(is.numeric), mean)) %>% filter(Latitude!=26.55) %>% 
-  filter(Latitude!=28.21) %>% filter(Latitude!=41.11)  -> con_vs_pho_fa0
+  dplyr::select( Long, Latitude,con_vs_pho_fa1 ) %>% group_by(Long, Latitude) %>% summarise(across(where(is.numeric), mean))  -> con_vs_pho_fa0
 con_vs_pho_fa0 -> con_vs_pho_fa
 data1<-SpatialPointsDataFrame(con_vs_pho_fa[,1:2],con_vs_pho_fa)
 set.seed(11111)
@@ -955,8 +954,7 @@ protist_Class_arrange_rela %>% group_by(Function) %>% summarise(across(where(is.
   filter(Function=="Consumer") %>% melt() -> tmp1
 protist_Class_arrange_rela %>% group_by(Function) %>% summarise(across(where(is.numeric), sum)) %>% dplyr::select(Function, contains('.Fo'))  %>%
   filter(Function=="Phototrophic") %>% melt() %>% merge(tmp1, by = "variable") %>% mutate(con_vs_pho_fo1= value.y/value.x) %>% merge(sites_phyc, by.x = 'variable', by.y = "sites") %>% 
-  dplyr::select( Long, Latitude,con_vs_pho_fo1 ) %>% group_by(Long, Latitude) %>% summarise(across(where(is.numeric), mean)) %>% filter(Latitude!=41.09) %>% 
-  filter(Latitude!=29.84) %>% filter(Latitude!=0)  -> con_vs_pho_fo
+  dplyr::select( Long, Latitude,con_vs_pho_fo1 ) %>% group_by(Long, Latitude) %>% summarise(across(where(is.numeric), mean))   -> con_vs_pho_fo
 data1<-SpatialPointsDataFrame(con_vs_pho_fo[,1:2],con_vs_pho_fo)
 set.seed(131415)
 aa <- autoKrige.cv(con_vs_pho_fo1~1,data1, nfold=10)
@@ -1010,8 +1008,7 @@ protist_Class_arrange_rela %>% group_by(Function) %>% summarise(across(where(is.
   filter(Function=="Consumer") %>% melt() -> tmp1
 protist_Class_arrange_rela %>% group_by(Function) %>% summarise(across(where(is.numeric), sum)) %>% dplyr::select(Function, contains('.Gr'))  %>%
   filter(Function=="Phototrophic") %>% melt() %>% merge(tmp1, by = "variable") %>% mutate(con_vs_pho_gr1= value.y/value.x) %>% merge(sites_phyc, by.x = 'variable', by.y = "sites") %>% 
-  dplyr::select( Long, Latitude,con_vs_pho_gr1 ) %>% group_by(Long, Latitude) %>% summarise(across(where(is.numeric), mean)) %>% filter(Latitude!=0) %>% 
-  filter(Latitude!=0) %>% filter(Latitude!=0)  -> con_vs_pho_gr
+  dplyr::select( Long, Latitude,con_vs_pho_gr1 ) %>% group_by(Long, Latitude) %>% summarise(across(where(is.numeric), mean))   -> con_vs_pho_gr
 data1<-SpatialPointsDataFrame(con_vs_pho_gr[,1:2],con_vs_pho_gr)
 set.seed(11111)
 aa <- autoKrige.cv(con_vs_pho_gr1~Long+Latitude,data1, nfold=10)
@@ -1061,8 +1058,7 @@ protist_Class_arrange_rela %>% group_by(Function) %>% summarise(across(where(is.
 protist_Class_arrange_rela %>% group_by(Function) %>% summarise(across(where(is.numeric), sum)) %>% dplyr::select(Function, contains('.Go'))  %>%
   filter(Function=="Phototrophic") %>% melt() %>% merge(tmp1, by = "variable") %>% mutate(con_vs_pho_go1= value.y/value.x) %>% merge(sites_phyc, by.x = 'variable', by.y = "sites") %>% 
   filter(!variable %in%c("GS.Go5", "XJ.Go15",'XJ.Go10','QH.Go7')) %>% 
-  dplyr::select( Long, Latitude,con_vs_pho_go1 ) %>% group_by(Long, Latitude) %>% summarise(across(where(is.numeric), mean)) %>% filter(Latitude!=0) %>% 
-  filter(Latitude!=0) %>% filter(Latitude!=0)  -> con_vs_pho_go
+  dplyr::select( Long, Latitude,con_vs_pho_go1 ) %>% group_by(Long, Latitude) %>% summarise(across(where(is.numeric), mean))   -> con_vs_pho_go
 data1 <- SpatialPointsDataFrame(con_vs_pho_go[,1:2],con_vs_pho_go)
 set.seed(11111)
 aa <- autoKrige.cv(con_vs_pho_go1~Latitude,data1, nfold=10)
@@ -1114,8 +1110,7 @@ protist_Class_arrange_rela %>% group_by(Function) %>% summarise(across(where(is.
   filter(Function=="Consumer") %>% melt() -> tmp1
 protist_Class_arrange_rela %>% group_by(Function) %>% summarise(across(where(is.numeric), sum)) %>% dplyr::select(Function, contains(c(".T" ,".D")))  %>%
   filter(Function=="Phototrophic") %>% melt() %>% merge(tmp1, by = "variable") %>% mutate(con_vs_pho_mi1= value.y/value.x) %>% merge(sites_phyc, by.x = 'variable', by.y = "sites") %>% 
-  dplyr::select( Long, Latitude,con_vs_pho_mi1) %>% group_by(Long, Latitude) %>% summarise(across(where(is.numeric), mean)) %>% filter(Latitude!=37.29) %>% 
-  filter(Latitude!=0) %>% filter(Latitude!=29.75) %>% filter(Latitude!=32.17)  %>% filter(con_vs_pho_mi1<300)-> con_vs_pho_mi
+  dplyr::select( Long, Latitude,con_vs_pho_mi1) %>% group_by(Long, Latitude) %>% summarise(across(where(is.numeric), mean)) -> con_vs_pho_mi
 data1 <- SpatialPointsDataFrame(con_vs_pho_mi[,c(1:2)],con_vs_pho_mi)
 
 set.seed(10002)
